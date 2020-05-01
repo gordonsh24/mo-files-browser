@@ -9,35 +9,36 @@ use WPML\FP\Obj;
 use function WPML\FP\curryN;
 use function WPML\FP\pipe;
 
-class ListEntries {
+final class ListEntries {
 
-	public static function getList( Arguments $arguments ) {
+	public static function loadMOFile( string $fileName ): array {
+		$mo = new \MO();
+		$mo->import_from_file( $fileName );
+
+		return $mo->entries;
+	}
+
+	public static function getList( Arguments $arguments, callable $loadEntries ) {
 		$functions = [
-			self::readFile(),
+			self::readFile( $loadEntries ),
 			self::getSearchFns( $arguments->getSearch() ),
 		];
 
 		$allItems = pipe( ...$functions )( $arguments->getFilename() );
 
 		return [
-			'items'  => Lst::slice( $arguments->getOffset(), $arguments->getLimit(), $allItems ),
+			'items' => Lst::slice( $arguments->getOffset(), $arguments->getLimit(), $allItems ),
 			'total' => count( $allItems ),
 		];
 	}
 
-	private static function readFile(): callable {
-		return function ( string $filePath ): array {
-			$loadEntries = function ( $filePath ) {
-				$mo = new \MO();
-				$mo->import_from_file( $filePath );
-
-				return $mo->entries;
-			};
-
+	private static function readFile( callable $loadEntries ): callable {
+		return function ( string $filePath ) use ( $loadEntries ): array {
 			// $implodeTranslations :: [string] -> string
-			$implodeTranslations = curryN( 2, 'implode' )( '; ' );
+			$implodeTranslations = curryN( 2, 'implode' )( ' | ' );
 			// $strTrimWidth :: string -> string
 			$strTrimWidth = fn( $str ) => mb_strimwidth( $str, 0, 50, '...' );
+			$strTrimWidth = Fns::identity();
 			// $transformTranslations :: [string] -> string
 			$transformTranslations = pipe( Fns::map( $strTrimWidth ), $implodeTranslations );
 
@@ -51,7 +52,7 @@ class ListEntries {
 				];
 			};
 
-			return pipe( $loadEntries, Fns::map( $mapEntry ) )( $filePath );
+			return pipe( $loadEntries, Fns::map( $mapEntry ), 'array_values' )( $filePath );
 		};
 	}
 

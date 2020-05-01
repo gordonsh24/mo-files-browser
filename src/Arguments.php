@@ -2,8 +2,7 @@
 
 namespace MOFilesBrowser;
 
-
-class Arguments {
+final class Arguments {
 
 	private string $filename;
 

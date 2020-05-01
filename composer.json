@@ -29,7 +29,7 @@
     "wpml/fp": "dev-develop"
   },
   "require-dev": {
-
+    "phpunit/phpunit": "^9"
   },
   "autoload": {
     "classmap": [
