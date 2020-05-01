@@ -1,0 +1,36 @@
+{
+  "name": "mo-files-reviewer",
+  "description": "MO Files Reviewer",
+  "license": "",
+  "homepage": "https://github.com/gordonsh24/mo-files-reviewer",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Jakub Bis",
+      "email": "jakubbis@gmail.com"
+    }
+  ],
+  "repositories": {
+    "fp" : {
+      "type": "vcs",
+      "url": "ssh://git@git.onthegosystems.com:10022/wpml/fp.git"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "7.4"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "wpml/fp": "dev-develop"
+  },
+  "require-dev": {
+
+  },
+  "autoload": {
+
+  }
+}
