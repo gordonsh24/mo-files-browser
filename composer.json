@@ -25,12 +25,15 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
+    "wpml/collect": "dev-wpml-collect-rename",
     "wpml/fp": "dev-develop"
   },
   "require-dev": {
 
   },
   "autoload": {
-
+    "classmap": [
+      "src/"
+    ]
   }
 }

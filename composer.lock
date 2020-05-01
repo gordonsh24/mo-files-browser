@@ -4,8 +4,55 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "223aece36d1d614a4af3f534c4fb7c46",
+    "content-hash": "228984d9825206ac684b3048ef859185",
     "packages": [
+        {
+            "name": "wpml/collect",
+            "version": "dev-wpml-collect-rename",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OnTheGoSystems/collect.git",
+                "reference": "176515aada263af89deb654faa3ef67329e086b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OnTheGoSystems/collect/zipball/176515aada263af89deb654faa3ef67329e086b5",
+                "reference": "176515aada263af89deb654faa3ef67329e086b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.4",
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Illuminate/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "WPML\\Collect\\": "src/Illuminate"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "Collect - Illuminate Collections as a separate package.",
+            "keywords": [
+                "collection",
+                "laravel"
+            ],
+            "time": "2020-03-17T03:02:18+00:00"
+        },
         {
             "name": "wpml/fp",
             "version": "dev-develop",
@@ -36,6 +83,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "wpml/collect": 20,
         "wpml/fp": 20
     },
     "prefer-stable": true,

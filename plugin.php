@@ -7,10 +7,37 @@
  * Author: Jakub Bis
  */
 
-if ( defined( 'WP_CLI' ) ) {
+require_once __DIR__ . '/vendor/autoload.php';
 
-	\WP_CLI::add_command( 'mo-files-reviewer', function() {
-		\WP_CLI::success( 'Hello world' );
+if ( defined( 'WP_CLI' ) ) {
+	/**
+	 * List content of selected MO file
+	 *
+	 * <file>
+	 * : Path to MO File
+	 *
+	 *[--limit=<limit>]
+	 * : It limits number of subscriptions
+	 *
+	 * ---
+	 *
+	 * [--offset=<offset>]
+	 * : It starts from <offset> subscription
+	 *
+	 * [--search=<search>]
+	 * : It searches inside all fields
+	 */
+	\WP_CLI::add_command( 'mo browse', function ( array $args, array $assocArgs ) {
+		[ 'items' => $items, 'total' => $total ] = \MOFilesBrowser\ListEntries::getList(
+			new \MOFilesBrowser\Arguments( $args, $assocArgs )
+		);
+
+		\WP_CLI::line( sprintf( 'Total entities: %d', $total ) );
+		\WP_CLI\Utils\format_items(
+			'table',
+			$items,
+			[ 'id', 'singular', 'plural', 'translations' ]
+		);
 	} );
 
 }
