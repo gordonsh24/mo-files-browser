@@ -28,13 +28,6 @@ if ( defined( 'WP_CLI' ) ) {
 	 * : It searches inside all fields
 	 */
 	\WP_CLI::add_command( 'mo browse', function ( array $args, array $assocArgs ) {
-		$loadEntriesFromMoFile = function ( $filePath ) {
-			$mo = new \MO();
-			$mo->import_from_file( $filePath );
-
-			return $mo->entries;
-		};
-
 		[ 'items' => $items, 'total' => $total ] = \MOFilesBrowser\ListEntries::getList(
 			new \MOFilesBrowser\Arguments( $args, $assocArgs ),
 			[ \MOFilesBrowser\ListEntries::class, 'loadMOFile' ]
